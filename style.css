@@ -1,0 +1,59 @@
+body{
+    background-color: whitesmoke;
+}
+
+header{
+    background-color: #b071da;
+}
+
+.full-screen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 9990; /* Adjust z-index as needed */
+  }
+
+avatar-prof-css{
+    /* Specify the background image path */
+
+  
+    /* Set background properties for an unchangeable image */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  
+    /* Set the size of the background to cover the entire div */
+    background-size: cover;
+  
+    /* Add additional styles as needed */
+    width: 40px;
+    height: 40px; /* Adjust as needed */
+  }
+
+#user_id_a{
+  color: turquoise;
+
+}
+#user_id_a::after{
+  /* text-decoration: underline; */
+  cursor: pointer;
+}
+
+ol {
+  counter-reset: section;
+  list-style-type: none;
+}
+
+#folH{
+  cursor: pointer;
+}
+
+#folH:hover{
+  background-color: rgba(0, 0, 0, 0);
+}

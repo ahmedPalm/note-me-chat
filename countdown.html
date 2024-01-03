@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Add your own styles if needed -->
+  <style>
+    /* Add your custom styles here */
+  </style>
+</head>
+<body>
+    <div id="myDoomsClock" class="container mt-5">
+        <div class="row">
+          <div class="col-md-6 offset-md-3 text-center">
+            <h1>Countdown to 2024</h1>
+            <h1>Stay alert 😻</h1>
+            <div id="countdown" class="mt-4">
+              <div class="row">
+                <div class="col">
+                  <div id="days" class="countdown-item">
+                    <span id="days-number" class="number"></span>
+                    <span class="label">Days</span>
+                  </div>
+                </div>
+                <div class="col">
+                  <div id="hours" class="countdown-item">
+                    <span id="hours-number" class="number"></span>
+                    <span class="label">Hours</span>
+                  </div>
+                </div>
+                <div class="col">
+                  <div id="minutes" class="countdown-item">
+                    <span id="minutes-number" class="number"></span>
+                    <span class="label">Minutes</span>
+                  </div>
+                </div>
+                <div class="col">
+                  <div id="seconds" class="countdown-item">
+                    <span id="seconds-number" class="number"></span>
+                    <span class="label">Seconds</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 offset-md-3 text-center">
+        <h1>Noteme Chat app !</h1>
+      </div>
+      
+
+<!-- Your content goes here -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    
+  // Set the date we're counting down to
+  var countDownDate = new Date("January 1, 2024 00:00:00").getTime();
+
+  // Update the countdown every 1 second
+  var x = setInterval(function() {
+    // Get the current date and time
+    var now = new Date().getTime();
+
+    // Calculate the remaining time
+    var distance = countDownDate - now;
+
+    // Calculate days, hours, minutes, and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Update the countdown elements
+    document.getElementById("days-number").innerHTML = days;
+    document.getElementById("hours-number").innerHTML = hours;
+    document.getElementById("minutes-number").innerHTML = minutes;
+    document.getElementById("seconds-number").innerHTML = seconds;
+
+    // If the countdown is over, display a message
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("countdown").innerHTML = "<h2>Happy New Year 2024!</h2>";
+    }
+  }, 1000);
+
+</script>
+</body>
+</html>

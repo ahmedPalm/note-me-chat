@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="https://drive.google.com/uc?id=1JjQJASrjyNBXSk1rT1O5gfC5ZbrhSOj_">
+    <title id="TitlePage"> User name|NoteMe</title>
+    <!-- Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include jQuery Cookie Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body id="body">
+    <!-- Top sticky header -->
+    <header class="container-fluid text-white sticky-top">
+        <nav class="navbar d-flex navbar-expand-sm  justify-content-between">
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <img width="70px" height="30px" loading="lazy" src="https://drive.google.com/uc?id=1A8BymbYGwkFTJeNWDP9-iwmg-VzCF24r" alt="a7a">
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html" style="color: white;text-decoration: none;">
+                        <h1>NoteMe</h1>
+                    </a>
+                </li>
+            </ul>
+            <!-- Add Post -->
+            <!-- <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a href="makePost.html">
+                        <img width="40" loading="lazy" src="https://icon-library.com/images/icon-pen/icon-pen-14.jpg" alt="add post">
+                    </a> 
+                    <a href="settings.html">
+                        <img width="40" loading="lazy"  src="https://th.bing.com/th/id/R.46661bb1dbe1ecd76f5b8f2afadc2f4c?rik=VQ2DLBEa%2bsZpbA&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f4%2fSettings-PNG0.png&ehk=F4H5uhhoRPO6PoS8rDqdxY9UCfuzFFyAB4RkJIkZng8%3d&risl=&pid=ImgRaw&r=0" alt="add post">
+                    </a>
+                </li>
+            </ul> -->
+        </nav>
+    </header>
+    <!-- Profile Infos -->
+    <div>
+        <nav class="navbar justify-content-start bg-info">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <img id="profPic" loading="lazy" data-toggle="modal" data-target="#changeAvatar" width="150px" height="150px" src="https://www.freeiconspng.com/uploads/account-profile-user-icon--icon-search-engine-10.png" alt="your profile picrure">
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <h3 class="text-white" id="profName"> Name</h3>                    
+                </li>
+            </ul>
+        </nav>
+        <nav class="navbar justify-content-end bg-info">
+            &emsp;
+            <ul class="navbar-nav" id="followUL">
+                <li class="nav-item">
+                    <button class="btn bg-primary text-white">
+                        <h6 class="text-white" id="followBtn">Follow +</h6>                    
+                    </button>
+                </li>
+            </ul>
+            &emsp;
+            <ul class="navbar-nav" id="unFollowUL">
+                <li class="nav-item">
+                    <button class="btn bg-white text-white">
+                        <h6 class="text-dark" id="unfollowBtn">unFollow</h6>                    
+                    </button>
+                </li>
+            </ul>
+            &emsp;
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="message.html?id=" id="message_A">
+                        <button class="btn bg-white ">
+                            <h6 class="text-dark" id="profName">Message</h6> 
+                        </button>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="navbar justify-content-end bg-info">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <h5 class="text-dark" id="followerH">followers </h5>
+                </li>
+            </ul>
+            &emsp;
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <h5 class="text-dark" id="followingH">following</h5>
+                </li>
+            </ul>
+            
+        </nav>
+    </div>
+    <div id="changeAvatar" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5>Avatr picture</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body justify-content-center">
+                    <img id="fullAvatarImg" loading="lazy" src="" width="350px" height="100%">
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <p>looks handsome today</p>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="container-fluid justify-content-center">
+        <div  class="col-sm-6 " align="center" id="mainBody">
+            <h1>See the notes</h1>
+            <div class="border-top my-3"></div>
+            <div id="myPosts">
+                    <!-- Your Content here -->
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js";
+      import { getDatabase, ref, onValue, child, get ,set, push, remove  } from  "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+       // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyB26LjMWqNXTktoEEfU7qmwfBlK8rVjtHs",
+            authDomain: "note-me-chat.firebaseapp.com",
+            databaseURL: "https://note-me-chat-default-rtdb.firebaseio.com",
+            projectId: "note-me-chat",
+            storageBucket: "note-me-chat.appspot.com",
+            messagingSenderId: "825913163540",
+            appId: "1:825913163540:web:9cbe9b99909ae5f6838c01",
+            measurementId: "G-RFGSE7L1MW"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const dbRef = ref(getDatabase());
+        const db = getDatabase()
+        function IsCookieExist(cookieName) {
+            return $.cookie(cookieName) !== undefined;
+        }
+        let getIdParamad = new URLSearchParams(window.location.search);
+        
+        //declare var
+        var fullAvatarImg = document.getElementById('fullAvatarImg');
+        var uidCookieExists = IsCookieExist('UID');
+        const getUIDCookie = $.cookie('UID');
+        if (uidCookieExists) {
+
+            //Change User info
+            get(child(dbRef, `/Users/${getIdParamad.get('id')}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                document.getElementById('profName').innerText = snapshot.val().DisName;
+                document.getElementById('profPic').src = snapshot.val().ProfPic;
+                // console.log(snapshot.val().Name);
+                document.getElementById('TitlePage').innerText = `${snapshot.val().DisName} | Noteme Chat`;
+                
+            } else {
+                console.log("No data available");
+            }
+            }).catch((error) => {
+            console.error(error);
+            });
+        } else {
+            document.body.style.overflow = 'hidden';
+            let codeSign = `
+            <div class="full-screen-overlay">
+                <div align="center">
+                    <h1>Log in For more fun</h1>
+                    <a href="/UserInfo/Sign/log-in.html">
+                        <button class="btn btn-primary">Log in</button>
+                    </a>
+                    <a href="/UserInfo/Sign/register.html">
+                        <button class="btn btn-danger">Register</button>
+                    </a>
+                </div>
+            </div>
+        `;
+            $(codeSign).appendTo('#body');
+        }
+    
+        //decalre vars
+        let profPic = document.getElementById('profPic');
+        let profName = document.getElementById('profName');
+        let followBtn = document.getElementById('followUL');
+        let unFollowBtn = document.getElementById('unFollowUL');
+        let message_A = document.getElementById('message_A');
+
+        //styles
+        profPic.style.cursor = 'pointer';
+        profPic.style.borderRadius = '50%';
+
+
+
+        ///databse
+        const database = getDatabase();
+        const userId = getIdParamad.get('id');
+        const userPostsRef = ref(database, `/Posts/${userId}/`);
+
+        // Assuming you have a Users reference in your database
+        const userRef = ref(database, `/Users/${userId}/`);
+
+        onValue(userRef, (userSnapshot) => {
+            // Check if the user data exists
+            if (userSnapshot.exists()) {
+                // Get the user's ProfPic
+                const userProfPic = userSnapshot.val().ProfPic;
+
+                // Continue with the rest of your code
+                onValue(userPostsRef, (snapshot) => {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+                        let postHeader = childData.PostHeader;
+                        let postImg = childData.PostImg;
+                        let postDate = childData.Date;
+
+                        if (!childKey.includes('removed')) {
+                            let codePost = `
+                                <nav class="card border-top-8">
+                                    <nav class="navbar ">
+                                        <nav class="navbar justify-content-start">
+                                            <ul class="navbar-nav">
+                                                <li class="nav-item">
+                                                    <img loading="lazy" style="border-radius:50%;" width="40px" height="40px" src="${userProfPic}" alt="ProgPic">
+                                                </li>
+                                            </ul>
+                                            <ul class="navbar-nav">
+                                                <li class="nav-item">
+                                                    <h6>
+                                                        ${userId}
+                                                        &emsp;
+                                                        ${postDate}
+                                                    </h6>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                        <br>
+                                        <div class="container justify-content-center">
+                                            <h1>${postHeader}</h1>
+                                            ${postImg && postImg.trim() !== '' ? `<img class="thumbnail" width="35%" height="100%" src="${postImg}" alt="Something went wrong..">` : ''}
+                                        </div>
+                                    </nav>
+                                </nav>
+                            `;
+                            $(codePost).appendTo('#myPosts');
+                        }
+                    });
+                }, {
+                    olnyOnce: true
+                });
+            } else {
+                // Handle the case where the user data doesn't exist
+                console.error(`User with ID ${userId} not found.`);
+            }
+        });
+
+
+
+        // Use the get function to retrieve the data
+        get(userRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                // The data exists, and you can access it using snapshot.val()
+                var userData = snapshot.val();
+                fullAvatarImg.src = userData.ProfPic;
+                
+                // Now you can use userData for further processing
+                var profilePicture = userData.ProfPic;
+                
+                // Do something with the data...
+                } else {
+                console.log('No data available');
+                }
+            })
+            .catch((error) => {
+                console.error('Error getting data:', error);
+            });
+        function checkFollowStatus(targetUserId) {
+
+            // Create a reference to the following path for the current user
+            const followingRef = ref(db, `/Users/${getUIDCookie}/Following/`);
+
+            // Check if the target user ID exists in the following path
+            get(child(followingRef, targetUserId))
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        $(followBtn).hide();
+                        $(unFollowBtn).show();
+                    } else {
+                        $(followBtn).show();
+                        $(unFollowBtn).hide();
+                    }
+                })
+                .catch((error) => {
+                    console.error(`Error checking follow status: ${error}`);
+                });
+            }
+            checkFollowStatus(getIdParamad.get('id'));
+            $(followBtn).hide();
+            $(unFollowBtn).hide();
+        function followUser(targetUserId,targetFollowId){
+            // Create a reference to the following path for the current user
+            const followingRef = ref(db, `/Users/${getUIDCookie}/Following/`);
+            const followerRef = ref(db, `/Users/${getIdParamad.get('id')}/Followers/`);
+            // Set a new entry with the key as targetUserId and value as true (or any other relevant information)
+            set(child(followingRef, targetUserId), true)
+                .then(() => {
+                    console.log(`Successfully followed user with ID: ${targetUserId}`);
+                })
+                .catch((error) => {
+                    console.error(`Error following user: ${error}`);
+                });
+            set(child(followerRef, targetFollowId), true)
+                .then(() => {
+                    console.log(`Successfully followed user with ID: ${targetFollowId}`);
+                })
+                .catch((error) => {
+                    console.error(`Error following user: ${error}`);
+                });
+        }
+
+        function unFollowUser(targetUserId){
+            const pathToDelete = `/Users/${getUIDCookie}/Following/${targetUserId}`;
+            const valueRef = ref(database, pathToDelete);
+            remove(valueRef)
+            .then(() => {
+                console.log('')
+            })
+            .catch((error) => {
+                console.error('Error deleting value:', error);
+            });
+            //delete follower
+            const pathToDeleteFo = `/Users/${getIdParamad.get('id')}/Followers/${getUIDCookie}`;
+            const valueRefFo = ref(database, pathToDeleteFo);
+            remove(valueRefFo)
+            .then(() => {
+                console.log('')
+            })
+            .catch((error) => {
+                console.error('Error deleting value:', error);
+            });
+        }
+
+        // Example usage
+        
+
+        function messageUser(){
+            console.log('go to message')
+        }
+
+        followBtn.addEventListener('click', function (e) {
+            followUser(getIdParamad.get('id'), getUIDCookie);
+            console.log('')
+            location.reload();
+        });
+
+        unFollowBtn.addEventListener('click', function (e) {
+            unFollowUser(getIdParamad.get('id'));
+            console.log('');
+            location.reload();
+        });
+
+        message_A.href = `message.html?id=${getIdParamad.get('id')}`
+        // Assuming getUIDCookie contains the user's UID
+        let followerH = document.getElementById('followerH');
+        let followingH = document.getElementById('followingH');
+        const uid = getIdParamad.get('id');
+
+        // Reference to the "Following" node
+        const followingRef = ref(database, `Users/${uid}/Following`);
+
+        // Reference to the "Followers" node
+        const followersRef = ref(database, `Users/${uid}/Followers`);
+
+        // Get the size of the "Following" node
+        onValue(followingRef, (snapshot) => {
+            const followingSize = snapshot.size || 0;
+            followingH.innerText = `${followingSize} Following`;
+            
+        });
+        
+        // Get the size of the "Followers" node
+        onValue(followersRef, (snapshot) => {
+            const followersSize = snapshot.size || 0;
+            followerH.innerText = `${followersSize} Followers`;
+            // console.log('Followers size:', followersSize);
+        });
+    </script>
+    
+</body>
+</html>

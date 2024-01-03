@@ -1,0 +1,119 @@
+        // Get all posts
+        // const postsRef = ref(db, '/Posts');
+
+        // // Subscribe to real-time updates on posts
+        // onValue(postsRef, (postsSnapshot) => {
+        //     postsSnapshot.forEach((userSnapshot) => {
+        //         const userId = userSnapshot.key;
+        //         const userData = userSnapshot.val();
+
+        //         // Fetch user's posts
+        //         const userPostsRef = ref(db, `/Posts/${userId}`);
+        //         onValue(userPostsRef, (userPostsSnapshot) => {
+        //             userPostsSnapshot.forEach((postSnapshot) => {
+        //                 const postId = postSnapshot.key;
+        //                 const postData = postSnapshot.val();
+
+        //                 // Print PostHeader and PostImg
+        //                 console.log(`User: ${userId}, Post: ${postId}`);
+        //                 console.log(`PostHeader: ${postData.PostHeader}`);
+        //                 console.log(`PostImg: ${postData.PostImg}`);
+        //                 console.log('------------------');
+        //             });
+        //         }, (error) => {
+        //             console.error('Error fetching user posts:', error);
+        //         });
+        //     });
+        // }, (error) => {
+        //     console.error('Error fetching posts:', error);
+        // });
+
+
+
+                  get(child(dbRef, `/Posts/${getUIDCookie}/${getIDparams.get('id')}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                        // Iterate over the children and count them
+                            // Create a reference to the location you want to remove
+                            set(ref(database, `/Posts/${getUIDCookie}/removed-${getIDparams.get('id')}-${postId_DEL}`), {
+                                cont: userRef.postHeader,
+                                date: userRef.Date
+                            });
+                            // Use the remove method to delete the value
+                            const valueRef = ref(database, pathToDelete);
+                            remove(valueRef)
+                            .then(() => {
+                                alert('Value deleted successfully.');
+                            })
+                            .catch((error) => {
+                                console.error('Error deleting value:', error);
+                            });
+                        } else {
+                    console.log("No data available");
+                }
+                }).catch((error) => {
+                console.error(error);
+                });
+
+
+
+
+
+
+                        onValue(roomRef, (roomSnapshot) => {
+        roomSnapshot.forEach((roomChildSnapshot) => {
+            const roomId = roomChildSnapshot.key;
+
+            // Users node
+            const usersRef = ref(database, `Room/${roomId}/users`);
+            onValue(usersRef, (userSnapshot) => {
+                const userData = userSnapshot.val();
+
+                if (userData && userData[getUIDCookie] === true && userData[getIdParamad.get('id')] === true) {
+                    $(roomExist).show()
+                    $(roomDExist).hide()
+
+                    // Fetch and print messages
+                    const messagesRef = ref(database, `Room/${roomId}`);
+                    onChildAdded(messagesRef, (messageSnapshot) => {
+                        const messageId = messageSnapshot.key;
+                        const messageData = messageSnapshot.val();
+                        getIdParamad.append('room',roomId)
+                        // Check if the key includes the word 'mes'
+                        if (messageId && messageId.toLowerCase().includes('mes')) {
+                            // Update UI inside the asynchronous block
+                            let mesCode = '';
+                            // Append the new message container to the existing content
+                            if (messageData.sender == getUIDCookie) {
+                                mesCode = `
+                                    <div class="container" id="mes-cont">
+                                        <h6 class="mes-sender">
+                                            <img class="profPic" width="100px" height="100px" src="img.png" alt="prof">
+                                            You
+                                        </h6>
+                                        <h6 class="mes-content">${messageData.message}</h6>                                        
+                                    </div>
+                                `;
+
+                            } else {
+                                
+                                mesCode = `
+                                    <div class="container" id="mes-cont">
+                                        <h6 class="mes-sender">
+                                            <img class="profPic" width="100px" height="100px" src="img.png" alt="prof">
+                                            ${messageData.sender}
+                                        </h6>
+                                        <h6 class="mes-content">${messageData.message}</h6>
+                                    </div>
+                                `;
+                                
+                            }
+
+                            $('#messageCont').append(mesCode);
+                        }
+                    });
+                } else {
+                    $(roomDExist).show();
+                }
+            });
+        });
+    });

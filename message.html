@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://drive.google.com/uc?id=1JjQJASrjyNBXSk1rT1O5gfC5ZbrhSOj_">
+    <title>Messages | NoteMe chat</title>
+    <!-- Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include jQuery Cookie Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body id="body">
+    <!-- Top sticky header -->
+    <header class="container-fluid text-white sticky-top">
+        <nav class="navbar d-flex navbar-expand-sm  justify-content-between">
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <img width="70px" height="30px" loading="lazy" src="https://drive.google.com/uc?id=1A8BymbYGwkFTJeNWDP9-iwmg-VzCF24r" alt="a7a">
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" style="color: white;text-decoration: none;">
+                        <h1>NoteMe</h1>
+                    </a>
+                </li>
+            </ul>
+            <!-- Add Post -->
+            <!-- <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a href="/UserInfo/makePost.html">
+                        <img width="40" src="https://icon-library.com/images/icon-pen/icon-pen-14.jpg" alt="add post">
+                    </a> 
+                </li>
+            </ul> -->
+        </nav>
+    </header>
+    <div class="col-sm-12" id="roomExist">
+        <div class="container">
+            <h4>Chat between</h4>
+            <h6 id="chatPart">u1 & u2</h6>
+        </div>
+        <div class="container-fluid border-top border-top-8">
+            <div class="col-sm-12">
+                <div class="col-sm-12" id="messageCont">
+                    <!-- Messages here -->
+    
+                </div>            
+            </div>
+        </div>
+        <div class="container mt-5">
+            <form>
+                <div class="form-group">
+                    <label for="inputMessage">Type your message:</label>
+                    <input type="text" class="form-control" id="mesInp" placeholder="Enter your message">
+                </div>
+        
+                <button id="sendMesBtn" type="button" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-12" id="roomDExist">
+        <nav class="navbar justify-content-center">
+            <button id="newChatBtn" class="btn bg-primary">
+                <h4 class="text-white">New Chat +</h4>
+            </button>
+        </nav>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js";
+      import { getDatabase, ref, onValue, child, get ,set, push, remove, onChildAdded  } from  "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+       // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyB26LjMWqNXTktoEEfU7qmwfBlK8rVjtHs",
+            authDomain: "note-me-chat.firebaseapp.com",
+            databaseURL: "https://note-me-chat-default-rtdb.firebaseio.com",
+            projectId: "note-me-chat",
+            storageBucket: "note-me-chat.appspot.com",
+            messagingSenderId: "825913163540",
+            appId: "1:825913163540:web:9cbe9b99909ae5f6838c01",
+            measurementId: "G-RFGSE7L1MW"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const dbRef = ref(getDatabase());
+    
+        function IsCookieExist(cookieName) {
+            return $.cookie(cookieName) !== undefined;
+        }
+        
+        let getIdParamad = new URLSearchParams(window.location.search);
+        var uidCookieExists = IsCookieExist('UID');
+        const getUIDCookie = $.cookie('UID');
+        if (uidCookieExists) {
+            //Change User info
+            get(child(dbRef, `/Users/${getUIDCookie}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log('Signed');
+                
+            } else {
+                console.log("No data available");
+            }
+            }).catch((error) => {
+            console.error(error);
+            });
+        } else {
+            document.body.style.overflow = 'hidden';
+            let codeSign = `
+            <div class="full-screen-overlay">
+                <div align="center">
+                    <h1>Log in For more fun</h1>
+                    <a href="UserInfo/Sign/log-in.html">
+                        <button class="btn btn-primary">Log in</button>
+                    </a>
+                    <a href="UserInfo/Sign/register.html">
+                        <button class="btn btn-danger">Register</button>
+                    </a>
+                </div>
+            </div>
+        `;
+            $(codeSign).appendTo('#body');
+        }
+        // 
+
+
+        const database = getDatabase();
+        const roomRef = ref(database, "Room");
+        
+        // Declare other variables here if needed
+        const newChatBtn = document.getElementById('newChatBtn');
+        const roomExist = document.getElementById('roomExist');
+        const roomDExist = document.getElementById('roomDExist');
+        $(roomExist).hide()
+        $(roomDExist).hide()
+
+        
+
+        onValue(roomRef, (roomSnapshot) => {
+    roomSnapshot.forEach((roomChildSnapshot) => {
+        const roomId = roomChildSnapshot.key;
+
+        // Users node
+        const usersRef = ref(database, `Room/${roomId}/users`);
+        onValue(usersRef, (userSnapshot) => {
+            const userData = userSnapshot.val();
+
+            if (userData && userData[getUIDCookie] === true && userData[getIdParamad.get('id')] === true) {
+                $(roomExist).show();
+                $(roomDExist).hide();
+
+                // Fetch and print messages
+                const messagesRef = ref(database, `Room/${roomId}`);
+                const messagesContainer = $('#messageCont');
+                let messagesArray = [];
+
+                onChildAdded(messagesRef, (messageSnapshot) => {
+                    const messageId = messageSnapshot.key;
+                    const messageData = messageSnapshot.val();
+
+                    getIdParamad.append('room', roomId);
+
+                    // Check if the key includes the word 'mes'
+                    if (messageId && messageId.toLowerCase().includes('mes')) {
+                        messagesArray.push({
+                            id: messageId,
+                            data: messageData
+                        });
+                    } else {
+                        $(roomDExist).show();
+                    }
+                });
+
+                // Sort messages based on their numeric suffix
+                messagesArray.sort((a, b) => {
+                    const numA = parseInt(a.id.replace('mes', ''));
+                    const numB = parseInt(b.id.replace('mes', ''));
+                    return numA - numB;
+                });
+
+                // Clear existing messages
+                messagesContainer.empty();
+
+                // Append sorted messages to the container
+                messagesArray.forEach((message) => {
+                    const messageId = message.id;
+                    const messageData = message.data;
+                    const numericPart = messageId.replace('mes', '');
+                    const messageNumber = parseInt(numericPart);
+
+                    let mesCode = '';
+
+                    // Fetch sender's user data from Users node
+                    const senderUserId = messageData.sender;
+                    const senderUserRef = ref(database, `Users/${senderUserId}`);
+
+                    get(senderUserRef).then((senderSnapshot) => {
+                        if (senderSnapshot.exists()) {
+                            const senderProfPic = senderSnapshot.val().ProfPic;
+
+                            // Append the new message container to the existing content
+                            if (messageData.sender == getUIDCookie) {
+                                mesCode = `
+                                    <div class="container" style="background-color: whitesmoke;" id="mes-cont-${messageNumber}">
+                                        <h6 style="color:rgba(0,0,0,0.3)" class="mes-sender">
+                                            <img class="profPic" width="30px" height="30px" src="${senderProfPic}" alt="prof">
+                                            You
+                                        </h6>
+                                        <h6 class="mes-content">${messageData.message}</h6>                                        
+                                    </div>
+                                `;
+                            } else {
+                                mesCode = `
+                                    <div class="container" id="mes-cont-${messageNumber}" style="text-align: right;">
+                                        <a href="user_prof.html?id=${messageData.sender}">
+                                            <h6 style="color:rgba(0,0,0,0.3); display: block;">
+                                                <img id="profPic" width="30px" height="30px" src="${senderProfPic}" alt="prof">
+                                                ${messageData.sender}
+                                            </h6>
+                                        </a>
+                                        <h6 class="mes-content" style="display: block;">${messageData.message}</h6>
+                                    </div>
+                                `;
+
+
+                            }
+
+                            messagesContainer.append(mesCode);
+                        } else {
+                            console.log(`Sender's data not found for ID: ${senderUserId}`);
+                        }
+                    }).catch((error) => {
+                        console.error('Error fetching sender data:', error);
+                    });
+                });
+            } else {
+                console.log('new chat...');
+                $(roomDExist).show();
+            }
+        });
+    });
+});
+
+
+
+
+
+        document.getElementById('chatPart').innerText = `you and ${getIdParamad.get('id')}`;
+
+        
+        let sendMesBtn = document.getElementById('sendMesBtn');
+        let mesInp = document.getElementById('mesInp');
+
+        function addMes(sen, mes) {
+            onValue(roomRef, (roomSnapshot) => {
+                roomSnapshot.forEach((roomChildSnapshot) => {
+                    const roomId = roomChildSnapshot.key;
+
+                    // Users node
+                    const usersRef = ref(database, `Room/${roomId}/users`);
+
+                    get(usersRef).then((userSnapshot) => {
+                        const userData = userSnapshot.val();
+
+                        if (userData && userData[getUIDCookie] && userData[getIdParamad.get('id')]) {
+                            let mesCount = 0;
+
+                            // Iterate over the children and count only those with the 'mes' word
+                            roomChildSnapshot.forEach((childSnapshot) => {
+                                const childKey = childSnapshot.key;
+                                if (childKey && childKey.toLowerCase().includes('mes')) {
+                                    mesCount++;
+                                }
+                            });
+
+                            const newMesNum = mesCount + 1;
+                            console.log(`len: ${newMesNum}`);
+
+                            // Set the new message
+                            set(ref(database, `Room/${roomId}/mes${newMesNum}`), {
+                                sender: sen,
+                                message: mes
+                            });
+                        } else {
+                            console.log('User not authorized');
+                        }
+                    });
+                });
+            }, {
+                onlyOnce: true
+            });
+        }
+
+
+
+        function generateUniqueId() {
+            // Function to generate a random string of specified length
+            function getRandomString(length) {
+                const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    result += charset.charAt(Math.floor(Math.random() * charset.length));
+                }
+                return result;
+            }
+
+            // Generate three random letters
+            const letters = getRandomString(3);
+
+            // Generate two random numbers
+            const numbers = Math.floor(10 + Math.random() * 90); // to ensure two-digit numbers
+
+            // Generate random symbols (excluding ' and ")
+            const symbols = '@#$%&-_';
+            const randomSymbols = getRandomString(1).replace(/['"]/g, '');
+
+            // Concatenate the parts to form the unique ID
+            const uniqueId = `${letters}${numbers}${randomSymbols}`;
+
+        return uniqueId;
+    }
+
+        // Example usage
+        const generatedRoomId = generateUniqueId();
+        console.log(generatedRoomId)
+        function createNewRoom() {
+            try {
+                const generatedRoomId = generateUniqueId();
+
+                set(ref(database, `/Room/${generatedRoomId}/`), {
+                    init: true,
+                    users: {
+                        [getUIDCookie]: true,
+                        [getIdParamad.get('id')]: true
+                    }
+                    // Add other properties as needed
+                });
+
+                alert('Room created successfully!');
+            } catch (error) {
+                console.error('Error creating room:', error);
+                alert('Something went wrong while creating the room.');
+            }
+        }
+
+        newChatBtn.addEventListener('click', function (e) {
+            createNewRoom();
+            // You may handle page navigation or updates without a reload here
+        });
+
+        sendMesBtn.addEventListener('click', function (e) {
+            addMes(getUIDCookie, mesInp.value);
+            // alert('Message sent successfully');
+            location.reload();
+            console.log('reloaded')
+            location.reload();
+            console.log('updated')
+            // Consider handling page updates without a reload here
+            // Consider handling page updates without a reload here
+        });
+
+        function isChatOrMessagesShown() {
+        return $(roomExist).is(':visible') || $(roomDExist).is(':visible');
+    }
+
+    // Update the visibility of the "New Chat" button
+    function updateNewChatButtonVisibility() {
+        if (isChatOrMessagesShown()) {
+            $(newChatBtn).hide();
+        } else {
+            $(newChatBtn).show();
+        }
+    }
+
+    // Initial check on page load
+    updateNewChatButtonVisibility();
+
+    // ... (your existing code)
+
+    // Handle changes in chat or messages visibility
+    $(roomExist).on('DOMSubtreeModified', function () {
+        updateNewChatButtonVisibility();
+    });
+
+    $(roomDExist).on('DOMSubtreeModified', function () {
+        updateNewChatButtonVisibility();
+    });
+
+
+
+    </script>
+
+    
+</body>
+</html>
